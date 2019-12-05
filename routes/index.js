@@ -2,6 +2,7 @@ const router = require('koa-router')()
 const mysql = require('mysql')
 
 router.get('/', async (ctx, next) => {
+  console.log('ctx', ctx.query)
   // 创建数据池
   const mysqlConfig = mysql.createPool({
     user: 'liulibin',//用户
@@ -94,7 +95,7 @@ router.get('/mod', async (ctx, next) => {
   // 数据池中进行会话操作
   mysqlConfig.getConnection(function (err, connection) {
     const modSql = 'UPDATE list SET name=? WHERE id=?';
-    const modSqlData = ['小龙',1]
+    const modSqlData = ['小龙', 1]
     connection.query(modSql, modSqlData, (err, results, fields) => {
       if (err) {
         throw err
